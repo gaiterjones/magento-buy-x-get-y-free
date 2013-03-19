@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<buyxgetyfree_section1 translate="title" module="buyxgetyfreehelper1">
+											<title>Buy X Get 1 Free Section 1 by PAJ</title>
+											<sort_order>10</sort_order>
+										</buyxgetyfree_section1>
+										<buyxgetyfree_section2 translate="title" module="buyxgetyfreehelper1">
+											<title>Spend X Get 1 Free Section 2 by PAJ</title>
+											<sort_order>20</sort_order>
+										</buyxgetyfree_section2>
+										<buyxgetyfree_section3 translate="title" module="buyxgetyfreehelper1">
+											<title>Extension Settings section 3 by PAJ</title>
+											<sort_order>50</sort_order>
+										</buyxgetyfree_section3>
+										<buyxgetyfree_section4 translate="title" module="buyxgetyfreehelper1">
+											<title>Coupon X Get 1 Free Section 4 by PAJ</title>
+											<sort_order>30</sort_order>
+										</buyxgetyfree_section4>
+										<buyxgetyfree_section5 translate="title" module="buyxgetyfreehelper1">
+											<title>Category X Get 1 Free Section 5 by PAJ</title>
+											<sort_order>40</sort_order>
+										</buyxgetyfree_section5>											
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+</config>

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<config>
+  <modules>
+	  <PAJ_BuyXGetYFree>
+		  <version>0.70</version>
+	  </PAJ_BuyXGetYFree>
+  </modules> 
+    <global>
+        <blocks>
+            <buyxgetyfreeblock1>
+            	<class>PAJ_BuyXGetYFree_Block</class>
+           	</buyxgetyfreeblock1>
+        </blocks>
+        <helpers>
+            <buyxgetyfreehelper1>
+                <class>PAJ_BuyXGetYFree_Helper</class>
+            </buyxgetyfreehelper1>
+        </helpers>        
+        <models>
+            <buyxgetyfreemodel1>
+                <class>PAJ_BuyXGetYFree_Model</class>
+            </buyxgetyfreemodel1>
+		</models>
+	</global>
+  <default>
+    <buyxgetyfree_section1>
+      <general>
+		<productx_required_qty>1</productx_required_qty>
+      </general>
+    </buyxgetyfree_section1>	
+    <buyxgetyfree_section3>
+      <general>
+	   <send_alert_email>0</send_alert_email>
+		<allow_duplicate_product_y>0</allow_duplicate_product_y>
+      </general>
+    </buyxgetyfree_section3>	
+  </default>
+	
+	<frontend>
+		<routers>
+			<checkout>
+				<args>
+					<modules>
+						<PAJ_BuyXGetYFree before="Mage_Checkout_CartController">PAJ_BuyXGetYFree_Frontend_Checkout</PAJ_BuyXGetYFree>
+					</modules>
+				</args>
+			</checkout>
+		</routers>
+		<translate> 
+			<modules> 
+				<PAJ_BuyXGetYFree> 
+					<files> 
+						<default>PAJ_BuyXGetYFree.csv</default> 
+					</files> 
+				</PAJ_BuyXGetYFree> 
+			</modules> 
+		</translate>		
+	</frontend>
+	
+	<adminhtml>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<buyxgetyfree_section1 translate="title" module="buyxgetyfreehelper1">
+											<title>Buy X Get 1 Free Section by PAJ</title>
+											<sort_order>50</sort_order>
+										</buyxgetyfree_section1>
+										<buyxgetyfree_section2 translate="title" module="buyxgetyfreehelper1">
+											<title>Spend X Get 1 Free Section by PAJ</title>
+											<sort_order>60</sort_order>
+										</buyxgetyfree_section2>
+										<buyxgetyfree_section3 translate="title" module="buyxgetyfreehelper1">
+											<title>Spend X Get 1 Free Section by PAJ</title>
+											<sort_order>70</sort_order>
+										</buyxgetyfree_section3>
+										<buyxgetyfree_section4 translate="title" module="buyxgetyfreehelper1">
+											<title>Coupon X Get 1 Free Section by PAJ</title>
+											<sort_order>80</sort_order>
+										</buyxgetyfree_section4>
+										<buyxgetyfree_section5 translate="title" module="buyxgetyfreehelper1">
+											<title>Category X Get 1 Free Section by PAJ</title>
+											<sort_order>90</sort_order>
+										</buyxgetyfree_section5>										
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<translate> 
+			<modules> 
+				<PAJ_BuyXGetYFree> 
+					<files> 
+						<default>PAJ_BuyXGetYFree.csv</default> 
+					</files> 
+				</PAJ_BuyXGetYFree> 
+			</modules> 
+		</translate>		
+	</adminhtml>
+	
+</config>

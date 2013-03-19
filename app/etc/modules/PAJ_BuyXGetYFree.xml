@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PAJ_BuyXGetYFree>
+            <active>true</active>
+            <codePool>local</codePool>
+			<version>0.70</version>			
+        </PAJ_BuyXGetYFree>
+    </modules>
+</config>

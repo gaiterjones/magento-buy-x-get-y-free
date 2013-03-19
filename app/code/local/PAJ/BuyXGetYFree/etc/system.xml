@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+
+<config>
+    <tabs>
+        <paj_extensions translate="label" module="buyxgetyfreehelper1">
+            <label>My Extensions</label>
+            <sort_order>210</sort_order>
+        </paj_extensions>
+    </tabs>
+    
+    <sections>
+        <buyxgetyfree_section1 translate="label" module="buyxgetyfreehelper1">
+            <class>separator-top</class>
+            <label>Buy X Get Y Free</label>
+            <tab>paj_extensions</tab>
+            <sort_order>110</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                   <groups>
+					<general translate="label">
+						<label>Define Buy X Get Y Free/Discounted Products and Criteria</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>50</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<label1 translate="label comment">
+								<label>v0.70</label>
+								<frontend_type>note</frontend_type>
+								<sort_order>4</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[This extension can create a Buy X Get Y free sales promotion, where a bonus product Y is automatically added to the cart if the customer buys a quantity of product X. Please ensure your product Y is a simple product.]]>
+								</comment>
+							</label1>	
+							<productx_product_id translate="label comment">
+								<label>Product X Product ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>5</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of product X, use comma seperated values to define multiple products, i.e. 131,104,2010.</comment>
+							</productx_product_id>
+							<producty_product_id translate="label comment">
+								<label>Product Y Product ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of product Y (bonus product), use comma seperated values to define multiple products, i.e. 132,105,2011. Product Y must be a simple product and the ID configured here must be unique.</comment>
+							</producty_product_id>							
+							<productx_required_qty translate="label comment">
+								<label>Minimum quantity of product X required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>7</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Minumum quantity of product X that must be in the cart to qualify for product Y. Use comma seperated values for multiple products, i.e. 5,10,2. Default it left blank is 1.</comment>
+							</productx_required_qty>
+							<productx_limit_qty translate="label comment">
+								<label>Maximum quantity of product X required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>8</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Maximum quantity of product X that must be in the cart to qualify for product Y. Use comma seperated values for multiple products, i.e. 5,10,15 use 0 for no limit.</comment>
+							</productx_limit_qty>							
+							<producty_description translate="label comment">
+								<label>Description for bonus or free product:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Description of Product Y, use comma seperated values for multiple products. i.e. Free Gift,Bonus Product,Special Bonus. If left blank default is Free Gift.</comment>
+							</producty_description>	
+							<label2 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[Buy X Get Y Free - for support visit <a href="http://blog.gaiterjones.com">blog.gaiterjones.com</a>.]]>
+								</comment>
+							</label2>								
+						</fields>						
+					</general>
+				</groups>
+        </buyxgetyfree_section1>
+        <buyxgetyfree_section2 translate="label" module="buyxgetyfreehelper1">
+            <class>separator-top</class>
+            <label>Spend X Get Y Free</label>
+            <tab>paj_extensions</tab>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                   <groups>
+					<general translate="label">
+						<label>Define Spend X Get Y Free/Discounted Products and Criteria</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>60</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<label1 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>4</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[This extension can create a Spend X Get Y free sales promotion, where a bonus product Y is automatically added to the cart if the customer spends a qualifying amount on a single order. Please ensure your product Y is a simple product.]]>
+								</comment>
+							</label1>							
+							<spend_producty_product_id translate="label comment">
+								<label>Product Y Product ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of product Y (bonus product), use comma seperated values to define multiple products, i.e. 132,105,2011. Product Y must be a simple product and the ID configured here must be unique.</comment>
+							</spend_producty_product_id>							
+							<spend_cart_total_required translate="label comment">
+								<label>Cart sub total required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>7</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Cart base currency subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
+							</spend_cart_total_required>
+							<spend_cart_total_required translate="label comment">
+								<label>Cart sub total required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>8</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Cart subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
+							</spend_cart_total_required>							
+							<spend_customer_group_id translate="label comment">
+								<label>Customer group ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of the customer group customer must be a member of to qualify for offer, use comma seperated values for multiple offers. If left blank offer applies to all groups. For multiple groups specify group1+group2 e.g. 0+2 for group 0 and group 2.</comment>
+							</spend_customer_group_id>
+							<spend_excluded_products_id translate="label comment">
+								<label>Products excluded from this offer:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of any products you want to exclude from this offer, use comma seperated values for multiple products.</comment>
+							</spend_excluded_products_id>
+							<spend_notify_excluded_products translate="label comment">
+								<label>Notify customer when products excluded from offer:</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>11</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Set to YES to notify customer when products are excluded from the Category X offer.</comment>
+							</spend_notify_excluded_products>							
+							<label2 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[Spend X Get Y Free - for support visit <a href="http://blog.gaiterjones.com">blog.gaiterjones.com</a>.]]>
+								</comment>
+							</label2>								
+						</fields>						
+					</general>
+				</groups>
+        </buyxgetyfree_section2>
+        <buyxgetyfree_section3 translate="label" module="buyxgetyfreehelper1">
+            <class>separator-top</class>
+            <label>Extension Settings</label>
+            <tab>paj_extensions</tab>
+            <sort_order>190</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                   <groups>
+					<general translate="label">
+						<label>Extension Settings</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>60</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<send_alert_email translate="label comment">
+								<label>Send alert emails:</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Send emails to the general email address when Product Y cannot be added to a cart due to errors, low stock etc.</comment>
+							</send_alert_email>
+							<allow_duplicate_product_y translate="label comment">
+								<label>Allow duplicate product Y:</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Allow duplicate product Y, used for testing only.</comment>
+							</allow_duplicate_product_y>							
+						</fields>						
+					</general>
+				</groups>
+        </buyxgetyfree_section3>
+        <buyxgetyfree_section4 translate="label" module="buyxgetyfreehelper1">
+            <class>separator-top</class>
+            <label>Coupon X Get Y Free</label>
+            <tab>paj_extensions</tab>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                <groups>
+					<general translate="label">
+						<label>Define Coupon X Get Y Free/Discounted Products and Criteria</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>60</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<label1 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>4</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[This extension can create a sales promotion, where a bonus product Y is added to the cart if the customer applies a promotional coupon code. Please ensure your product Y is a simple product.]]>
+								</comment>
+							</label1>						
+							<coupon_producty_product_id translate="label comment">
+								<label>Product Y Product ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of product Y (bonus product), use comma seperated values to define multiple products, i.e. 132,105,2011. Product Y must be a simple product and the ID configured here must be unique.</comment>
+							</coupon_producty_product_id>							
+							<coupon_required translate="label comment">
+								<label>Coupon required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>7</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Name of the coupon required required to qualify for product Y, use comma seperated values for multiple coupons. Coupon must be valid and configured in Magento under Promotions.</comment>
+							</coupon_required>
+							<coupon_producty_description translate="label comment">
+								<label>Description for bonus or free product:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>8</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Description of Product Y, use comma seperated values for multiple products. i.e. Free Gift,Bonus Product,Special Bonus. If left blank default is Free Gift.</comment>
+							</coupon_producty_description>
+							<coupon_cart_total_required translate="label comment">
+								<label>Cart sub total required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Cart base currency subtotal required to qualify for product Y when coupon is valid, use comma seperated values for multiple products, i.e. 50,100,200. If left blank default is 0, i.e. disabled.</comment>
+							</coupon_cart_total_required>							
+							<label2 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[Coupon X Get Y Free - for support visit <a href="http://blog.gaiterjones.com">blog.gaiterjones.com</a>.]]>
+								</comment>
+							</label2>								
+						</fields>						
+					</general>
+				</groups>
+        </buyxgetyfree_section4>
+        <buyxgetyfree_section5 translate="label" module="buyxgetyfreehelper1">
+            <class>separator-top</class>
+            <label>Category X Get Y Free</label>
+            <tab>paj_extensions</tab>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                <groups>
+					<general translate="label">
+						<label>Define Category X Get Y Free/Discounted Products and Criteria</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>70</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<fields>
+							<label1 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>4</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[This extension can create a sales promotion, where a bonus/free product Y is added to the cart if a product in the cart is a member of a specific category. You can also create an inactive dummy category i.e. BuyXGetYFree and add products to this category that qualify for the promotion. Please ensure your product Y is a simple product.]]>
+								</comment>
+							</label1>						
+							<category_producty_product_id translate="label comment">
+								<label>Product Y Product ID:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of product Y (bonus product), use comma seperated values to define multiple products, i.e. 132,105,2011. Product Y must be a simple product and the ID configured here must be unique.</comment>
+							</category_producty_product_id>	
+							<category_id translate="label comment">
+								<label>Category ID :</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>7</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>ID number of Category X. Products in this category will qualify for bonus product Y. Use comma seperated values for multiple categories.</comment>
+							</category_id>							
+							<category_producty_max_qty translate="label comment">
+								<label>Max Number of Product Y allowed in cart:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>8</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>The maximum number of Bonus products allowed in the cart, default if left blank is 1.</comment>
+							</category_producty_max_qty>
+							<category_productx_min_qty translate="label comment">
+								<label>Quantity of product X required to qualify for product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>The quantity of Product X in cart required to qualify for product Y, default if left blank is 1.</comment>
+							</category_productx_min_qty>								
+							<category_producty_step translate="label comment">
+								<label>Product X Step:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>10</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Step to add multiple product Y. i.e. for every 6 product X get 1 product Y free then the step would be 6. Leave blank to default to 1.</comment>
+							</category_producty_step>									
+							<category_producty_description translate="label comment">
+								<label>Description for bonus or free product:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>11</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Description of Product Y, use comma seperated values for multiple products. i.e. Free Gift,Bonus Product,Special Bonus. If left blank default is Free Gift.</comment>
+							</category_producty_description>
+							<label2 translate="label comment">
+								<label></label>
+								<frontend_type>note</frontend_type>
+								<sort_order>20</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>
+								<![CDATA[Category X Get Y Free - for support visit <a href="http://blog.gaiterjones.com">blog.gaiterjones.com</a>.]]>
+								</comment>
+							</label2>								
+						</fields>						
+					</general>
+				</groups>
+        </buyxgetyfree_section5>
+    </sections>
+</config>
