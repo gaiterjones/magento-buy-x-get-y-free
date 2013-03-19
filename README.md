@@ -4,6 +4,11 @@
 
 Do not use this extension if you already have extended the cart controller class with another extension. e.g. if you are using a third party cart extension, or an ajax cart add/remove product enhancer.
 
+### Synopsis
+A common requirement for an eCommerce store is the Buy X Get Y free sales promotion, where a bonus product Y is offered if the customer buys a quantity of product X or the Spend X Get Y Free scenario where a bonus product Y is offered when the customer spends X amount on a single order.
+
+This Magento module code provides Buy X Get Y, Spend X get Y, use Coupon X get Y and buy from Category X get Y functionality for Magento eCommerce stores.
+
 ### Version
 ***
 	@version		0.70.0
@@ -14,9 +19,41 @@ Do not use this extension if you already have extended the cart controller class
 	
 ### Installation
 
-Copy the files to the root folder of your Magento installation.
+Extract the extension and copy the files to the /app folder of your magento installation. Refresh your cache, log out of admin and back in again.
 
 ### Configuration
+
+Configure the extension under 
+
+	System>Configuration>My Extensions
+	
+see below for examples. There are four sections to configure, one for each type of BUYXGETYFREE promotion, BUY X, SPEND X, CATEGORY X and COUPON X.
+
+### BUY X
+Buy product X get, product Y free, discounted.
+
+### SPEND X
+Spend amount X, get product Y free, discounted.
+
+### COUPON X
+Use coupon X get product Y free, discounted.
+
+### CATEGORY X
+Buy products that belong to a specific category X, get product Y free, discounted.
+
+You must create a new simple product to represent your free gift product (product Y), or duplicate an existing product. Product Y must have a unique ID across all configs, buy, spend and coupon. It must be saleable, should be hidden from your catalog search and have a zero price.
+
+If you want to provide the same product Y free or discounted for various product X's you must duplicate product Y for each offer so that each product Y has a unique ID number.
+
+If you want to give a bonus product for multiple product X's either use an existing category that the X products are members of, or create a dummy category, i.e. BuyXGetYFree that is not enabled/visible. Then add the X products to this category. Specify the ID number of the offer category in the extension configuration.
+
+The extension works best for a free gift product that is a simple product without options. If you want to make your free gift product Y a configurable product i.e. a product with colours RED/BLACK/WHITE, then consider creating a simple product to represent the free gift i.e. "FREE RED/BLACK/WHITE GIFT - select colour at checkout" and then include a comments section at checkout to allow customer to specify the colour/size etc there.
+
+To configure the extension for use with a coupon, first configure the coupon under Admin->Promotions. Configure the name of the coupon but do not apply any discount info, conditions or actions, i.e. in effect the coupon does nothing. Under the Coupon X configuration section of the extension, define product Y, the free or discounted product and the name of the configured coupon. You can also configure a minimum cart total required for this coupon. Test the extension by applying the coupon to the cart, product Y should then be added.
+
+Consider modifying your theme so that products that have a zero price have the quantity selection box disabled or removed in the cart or during the checkout process.
+
+Test out the extension at my development store here http://dev.gaiterjones.com/magento/
 
 To configure a simple Buy X Get Y Free
 
