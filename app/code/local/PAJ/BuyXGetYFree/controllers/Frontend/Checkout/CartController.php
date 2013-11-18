@@ -16,6 +16,7 @@
  *  0.65 - Improved translations.
  *  0.66 - Bugs in Category X Function
  *	0.70 - Changes to indexAction to improve functionality with other modules extending cartcontroller
+ *	0.71 - Added logic for MAX and MIN spend option to allow different Y gift for different spend amounts 18.11.2013
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -132,6 +133,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		
 		// Get admin variables for SPEND x get y free
 		$spendProductYID = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_producty_product_id'));
+		$spendCartYLimit = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_cart_y_limit'));
 		$spendCartTotalRequired = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_cart_total_required'));
 		$spendProductYDescription = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_producty_description'));
 		$spendCustomerGroupID = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_customer_group_id'));
@@ -159,11 +161,14 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if (empty($spendCartTotalRequired[$i])) {
 					$spendCartTotalRequired[$i]="50";
 				}
+				if (empty($spendCartYLimit[$i])) {
+					$spendCartYLimit[$i]="0";
+				}				
 				if ($spendProductYID[$i] !="0") {
 					if ($this->isProductYUnique())
 					{
 						// update the cart for this offer
-						$this->spendXgetYfreeCartUpdate((int)$spendProductYID[$i],(int)$spendCartTotalRequired[$i],$spendProductYDescription[$i],$spendCustomerGroupID[$i],$spendExcludedProductsID);
+						$this->spendXgetYfreeCartUpdate((int)$spendProductYID[$i],(int)$spendCartTotalRequired[$i],(int)$spendCartYLimit[$i],$spendProductYDescription[$i],$spendCustomerGroupID[$i],$spendExcludedProductsID);
 					} else {	
 						$error = "Error in Spend X configuration - Product Y is not unique across all extension settings."; 	
 						throw new Exception($error);
@@ -493,7 +498,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 	// end function	
 	}	
 
-	public function spendXgetYfreeCartUpdate($productYID,$cartTotalRequired,$productYDesc,$customerGroupID,$excludeProductID)
+	public function spendXgetYfreeCartUpdate($productYID,$cartTotalRequired,$cartYLimit,$productYDesc,$customerGroupID,$excludeProductID)
     {
 		$cart = $this->_getCart();
 		$cart->init();
@@ -544,8 +549,10 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 			$cartTotalRequired = Mage::helper('directory')->currencyConvert($cartTotalRequired, $baseCurrencyCode, $currentCurrencyCode);
 		}
 
+		if ($cartYLimit===0) {$cartYLimit=($subtotal+1); } // if no Y limit applied
+		
 		// check subtotal and customer group check qualify for offer
-        if ($subtotal >= $cartTotalRequired && $this->checkCustomerGroupId($customerGroupID)) {
+        if (($subtotal >= $cartTotalRequired && $subtotal <= $cartYLimit) && $this->checkCustomerGroupId($customerGroupID)) {
 		
 			if ($productYCartItemId == null) {
 				$product = Mage::getModel('catalog/product')

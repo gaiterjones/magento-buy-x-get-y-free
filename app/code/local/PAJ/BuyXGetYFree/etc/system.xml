@@ -27,7 +27,7 @@
 						<show_in_store>1</show_in_store>
 						<fields>
 							<label1 translate="label comment">
-								<label>v0.70</label>
+								<label>v0.71</label>
 								<frontend_type>note</frontend_type>
 								<sort_order>4</sort_order>
 								<show_in_default>1</show_in_default>
@@ -128,29 +128,38 @@
 							<spend_producty_product_id translate="label comment">
 								<label>Product Y Product ID:</label>
 								<frontend_type>text</frontend_type>
-								<sort_order>6</sort_order>
+								<sort_order>5</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
 								<comment>ID number of product Y (bonus product), use comma seperated values to define multiple products, i.e. 132,105,2011. Product Y must be a simple product and the ID configured here must be unique.</comment>
 							</spend_producty_product_id>							
 							<spend_cart_total_required translate="label comment">
-								<label>Cart sub total required to qualify for Product Y:</label>
+								<label>Cart minimum sub total required to qualify for Product Y:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Cart minimum base currency subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
+							</spend_cart_total_required>
+							<spend_cart_y_limit translate="label comment">
+								<label>Cart MAXIMUM sub total required to qualify for Product Y:</label>
 								<frontend_type>text</frontend_type>
 								<sort_order>7</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
-								<comment>Cart base currency subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
-							</spend_cart_total_required>
+								<comment>Cart maximum base currency subtotal required to qualify for product Y, use comma seperated values for multiple products, if empty default is 0.</comment>
+							</spend_cart_y_limit>							
 							<spend_cart_total_required translate="label comment">
-								<label>Cart sub total required to qualify for Product Y:</label>
+								<label>Cart MINIMUM sub total required to qualify for Product Y:</label>
 								<frontend_type>text</frontend_type>
 								<sort_order>8</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
-								<comment>Cart subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
+								<comment>Cart minimum subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
 							</spend_cart_total_required>							
 							<spend_customer_group_id translate="label comment">
 								<label>Customer group ID:</label>
