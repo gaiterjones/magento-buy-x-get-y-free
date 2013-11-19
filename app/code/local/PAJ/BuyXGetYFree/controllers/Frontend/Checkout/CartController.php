@@ -17,6 +17,7 @@
  *  0.66 - Bugs in Category X Function
  *	0.70 - Changes to indexAction to improve functionality with other modules extending cartcontroller
  *	0.71 - Added logic for MAX and MIN spend option to allow different Y gift for different spend amounts 18.11.2013
+ *	0.72 - float integer for spend totals, get subtotal from session
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -168,7 +169,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 					if ($this->isProductYUnique())
 					{
 						// update the cart for this offer
-						$this->spendXgetYfreeCartUpdate((int)$spendProductYID[$i],(int)$spendCartTotalRequired[$i],(int)$spendCartYLimit[$i],$spendProductYDescription[$i],$spendCustomerGroupID[$i],$spendExcludedProductsID);
+						$this->spendXgetYfreeCartUpdate((int)$spendProductYID[$i],(float)$spendCartTotalRequired[$i],(float)$spendCartYLimit[$i],$spendProductYDescription[$i],$spendCustomerGroupID[$i],$spendExcludedProductsID);
 					} else {	
 						$error = "Error in Spend X configuration - Product Y is not unique across all extension settings."; 	
 						throw new Exception($error);
@@ -534,7 +535,12 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		}
  
         // get subtotal
-        $subtotal = $cart->getQuote()->getSubtotal();
+        //$subtotal = $cart->getQuote()->getSubtotal();
+		
+		// get subtotal
+		$totals = Mage::getSingleton('checkout/cart')->getQuote()->getTotals();
+		$subtotal = $totals['subtotal']->getValue();
+
 		// subtract excluded product total cart price
 		$subtotal = $subtotal - $excludeProductTotal;
 		
@@ -716,8 +722,9 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$cart->init();
 
 		// get cart subtotal
-        $subtotal = $cart->getQuote()->getSubtotal();		
-
+        //$subtotal = $cart->getQuote()->getSubtotal();
+		$totals = Mage::getSingleton('checkout/cart')->getQuote()->getTotals();
+		$subtotal = $totals['subtotal']->getValue();		
 		
         $productYCartItemId = null;
 		static $lowStockWarningAmount = 5;
