@@ -227,7 +227,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						if ($this->isProductYUnique() )
 						{
 							// update the cart for this offer
-							$this->couponXgetYfreeCartUpdate((int)$couponProductYID[$i],$couponRequired[$i],$couponProductYDescription[$i],$couponCartTotalRequired[$i]);
+							$this->couponXgetYfreeCartUpdate((int)$couponProductYID[$i],$couponRequired,$couponProductYDescription[$i],$couponCartTotalRequired[$i]);
 						} else {	
 							$error = "Error in Coupon X configuration - Product Y is not unique across all extension settings."; 	
 							throw new Exception($error);
@@ -753,7 +753,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		}
 		
 		// check for valid coupon and cart total
-        if ($subtotal >= $cartTotalRequired && strtolower($cartCouponCode) === strtolower($couponRequired)) {
+        if ($subtotal >= $cartTotalRequired && in_array(strtolower($cartCouponCode),array_map('strtolower',$couponRequired))){
 
 			if ($productYCartItemId == null) {
 				$product = Mage::getModel('catalog/product')
