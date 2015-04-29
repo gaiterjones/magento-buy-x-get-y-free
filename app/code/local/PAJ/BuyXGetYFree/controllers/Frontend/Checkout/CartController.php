@@ -7,7 +7,7 @@
  *  Add free/discounted product/s to cart based on COUPON X get Y product/s free/discounted.
  *  Extends Mage/Checkout/CartController.php
  *  
- *  Copyright (C) 2011 paj@gaiterjones.com 16.11.2012 v0.70
+ *  Copyright (C) 2015 paj@gaiterjones.com 27.04.2015 v0.73
  *  0.59 - Bug Fix string typo maxQtyProductY
  *  0.60 - Bug Fix force lower case check for coupon name.
  *  0.61 - Added product exclusion for Spend X
@@ -18,6 +18,7 @@
  *	0.70 - Changes to indexAction to improve functionality with other modules extending cartcontroller
  *	0.71 - Added logic for MAX and MIN spend option to allow different Y gift for different spend amounts 18.11.2013
  *	0.72 - float integer for spend totals, get subtotal from session
+ *  0.73 - stop duplicate notification messages 
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -108,7 +109,6 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 					} else {	
 						$error = "Error in Buy X configuration - Product Y is not unique across all extension settings."; 	
 						throw new Exception($error);
-						break;
 					}
 				}
 
@@ -116,7 +116,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 
 		} catch (Exception $ex) { 
 			// Catch errors
-			$cart->getCheckoutSession()->addError($this->__($error));
+			$this->addNotificationMessage($cart,'error',$this->__($error));
 			$this->sendErrorEmail($error);
 			}
 	}
@@ -173,14 +173,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 					} else {	
 						$error = "Error in Spend X configuration - Product Y is not unique across all extension settings."; 	
 						throw new Exception($error);
-						break;
 					}
 				}
 			}
 
 		} catch (Exception $ex) { 
 			// Catch errors
-			$cart->getCheckoutSession()->addError($this->__($error));
+			$this->addNotificationMessage($cart,'error',$this->__($error));
 			$this->sendErrorEmail($error);
 			}
 	}
@@ -231,14 +230,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						} else {	
 							$error = "Error in Coupon X configuration - Product Y is not unique across all extension settings."; 	
 							throw new Exception($error);
-							break;						
 						}
 					}
 				}
 
 			} catch (Exception $ex) { 
 				// Catch errors
-				$cart->getCheckoutSession()->addError($this->__($error));
+				$this->addNotificationMessage($cart,'error',$this->__($error));
 				$this->sendErrorEmail($error);
 				}
 	}
@@ -298,14 +296,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						} else {	
 							$error = "Error in Category X configuration - Product Y is not unique across all extension settings."; 	
 							throw new Exception($error);
-							break;						
 						}
 					}
 				}
 
 			} catch (Exception $ex) { 
 				// Catch errors
-				$cart->getCheckoutSession()->addError($this->__($error));
+				$this->addNotificationMessage($cart,'error',$this->__($error));
 				$this->sendErrorEmail($error);
 				}
 	}	
@@ -321,7 +318,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 
 		$productYCartItemId = null;
 		$productXCartId = null;
-		static $lowStockWarningAmount = 5;
+		$lowStockWarningAmount = 5;
 
 		//make sure there is never more than one of product Y in cart
          foreach ($cart->getQuote()->getAllItems() as $item) {
@@ -381,18 +378,18 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 										}
 										$cart->addProduct($product);
 										$cart->save();
-										$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been added to your cart.'));							
+										$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));									
 										session_write_close();										
 										$this->_redirect('checkout/cart');
 
 									} else {
 										if ($qty == 0) {
 											$this->sendErrorEmail($product->getName(). ' '. $this->__('stock quantity is 0 and could not be added to the cart!'));
-											$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+											$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
 											session_write_close();										
 										} else {
 											$this->sendErrorEmail($product->getName(). ' ' . $this->__('was not saleable and could not be added to the cart!'));
-											$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+											$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
 											session_write_close();	
 										}
 									}
@@ -406,13 +403,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
-								$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+								$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
 								session_write_close();
 								$this->_redirect('checkout/cart');
 							}
 							if ($cfg_qty >= ($productXminQtyRequired-1) && $cfg_qty <= $productXmaxQty) {
 								// one more required for free gift prompt
-								$cart->getCheckoutSession()->addNotice($this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'. ' '. $productYDesc) .'!');
+								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'. ' '. $productYDesc) .'!');
 								session_write_close();
 							}
 
@@ -434,20 +431,20 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 									if ($qty >= 0 && $qty <= $lowStockWarningAmount) {
 										$this->sendErrorEmail('BuyXGetYFree product is at very low stock levels. There are only ' . ($qty - 1) . ' left.');
 									}
-										$message=$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been added to your cart.');
+										$message=$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.');
 										$cart->addProduct($product);
 										$cart->save();
-										$cart->getCheckoutSession()->addSuccess($message);
+										$this->addNotificationMessage($cart,'success',$message);
 										session_write_close();
 										$this->_redirect('checkout/cart');
 								} else {
 										if ($qty == 0) {
 											$this->sendErrorEmail($product->getName(). ' '. $this->__('stock quantity is 0 and could not be added to the cart!'));
-											$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+											$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
 											session_write_close();										
 										} else {
 											$this->sendErrorEmail($product->getName(). ' ' . $this->__('was not saleable and could not be added to the cart!'));
-											$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+											$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
 											session_write_close();	
 										}
 								}
@@ -458,13 +455,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
-								$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+								$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
 								session_write_close();								
 								$this->_redirect('checkout/cart');
 							}
 							if ($item->getQty() >= ($productXminQtyRequired-1) && $item->getQty() <= $productXmaxQty) {
 								// one more required for free gift prompt
-								$cart->getCheckoutSession()->addNotice($this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'). ' '. $productYDesc .'!');
+								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'). ' '. $productYDesc .'!');
 								session_write_close();
 							}
 					}
@@ -486,7 +483,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						// remove product Y because product X no longer in cart
 						$cart->removeItem($productYCartItemId);
 						$cart->save();
-						$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+						$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
 						session_write_close();
 						$this->_redirect('checkout/cart');
 					}
@@ -506,7 +503,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 
         $productYCartItemId = null;
 		$excludeProductTotal=0;
-		static $lowStockWarningAmount = 5;
+		$lowStockWarningAmount = 5;
 
 		//make sure there is never more than one of product Y in cart
         foreach ($cart->getQuote()->getAllItems() as $item) {
@@ -528,7 +525,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 					// notify customer when products excluded
 					if (Mage::getStoreConfig('buyxgetyfree_section2/general/spend_notify_excluded_products'))
 					{
-						$cart->getCheckoutSession()->addNotice($item->getName(). ' '. $this->__('excluded from our offers.'));
+						$this->addNotificationMessage($cart,'notice',$item->getName(). ' '. $this->__('excluded from our offers.'));
 					}
 				}
 			}
@@ -573,17 +570,17 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been added to your cart.'));														
+							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));							
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
 								if ($qty == 0) {
 									$this->sendErrorEmail($product->getName(). ' '. $this->__('stock quantity is 0 and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));							
 									session_write_close();									
 								} else {
 									$this->sendErrorEmail($product->getName(). ' ' . $this->__('was not saleable and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));							
 									session_write_close();	
 								}
 						}
@@ -593,7 +590,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));							
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
@@ -611,7 +608,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$categoryXproductCount=0;
 		$productYCartQty=0;
 		
-		static $lowStockWarningAmount = 5;
+		$lowStockWarningAmount = 5;
 
 		// loop through the cart to get total of qualifying product X
         foreach ($cart->getQuote()->getAllItems() as $item) {
@@ -642,7 +639,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
                     	$item->setQty($maxQtyProductY);
 						if ($maxQtyProductY > 1)
 						{
-							$cart->getCheckoutSession()->addSuccess($this->__('You have reached your'). ' ' . $productYDesc. ' '. $this->__('limit of'). ' '. $maxQtyProductY. '.');
+							$this->addNotificationMessage($cart,'success',$this->__('You have reached your'). ' ' . $productYDesc. ' '. $this->__('limit of'). ' '. $maxQtyProductY. '.');	
 							session_write_close();							
 						}
 					} else {
@@ -675,17 +672,17 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been added to your cart.'));							
+							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));								
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
 								if ($qty == 0) {
 									$this->sendErrorEmail($product->getName(). ' '. $this->__('stock quantity is 0 and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));								
 									session_write_close();									
 								} else {
 									$this->sendErrorEmail($product->getName(). ' ' . $this->__('was not saleable and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));								
 									session_write_close();	
 								}
 						}
@@ -697,14 +694,14 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));								
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
 			
 			// one more required for free gift prompt				
 				if ($categoryXproductCount >= ($minQtyProductXrequired-1)) {
-					$cart->getCheckoutSession()->addNotice($this->__('Buy one more to qualify for the'). ' '. $productYDesc) .'!';
+					$this->addNotificationMessage($cart,'notice',$this->__('Buy one more to qualify for the'). ' '. $productYDesc .'!');								
 					session_write_close();
 				}				
         }
@@ -727,7 +724,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$subtotal = $totals['subtotal']->getValue();		
 		
         $productYCartItemId = null;
-		static $lowStockWarningAmount = 5;
+		$lowStockWarningAmount = 5;
 
 		//make sure there is never more than one of product Y in cart
         foreach ($cart->getQuote()->getAllItems() as $item) {
@@ -768,17 +765,17 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been added to your cart.'));														
+							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));	
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
 								if ($qty == 0) {
 									$this->sendErrorEmail($product->getName(). ' '. $this->__('stock quantity is 0 and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));																								
 									session_write_close();										
 								} else {
 									$this->sendErrorEmail($product->getName(). ' ' . $this->__('was not saleable and could not be added to the cart!'));
-									$cart->getCheckoutSession()->addNotice($productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));
+									$this->addNotificationMessage($cart,'notice',$productYDesc. ' '. $this->__('is out of stock and cannot be added to the cart!'));																								
 									session_write_close();	
 								}
 						}
@@ -789,13 +786,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$cart->getCheckoutSession()->addSuccess($this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));		
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
 				// add cart notice when total below required value and coupon is present.
 				if ($subtotal < $cartTotalRequired && $cartCouponCode === $couponRequired && $cartTotalRequired !=0) {
-					$cart->getCheckoutSession()->addNotice($this->__('Cart total does not qualify for this Coupon offer.'));										
+					$this->addNotificationMessage($cart,'notice',$this->__('Cart total does not qualify for this Coupon offer.'));																								
 				}
         }
     // end function  	
@@ -862,6 +859,36 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		}
 		// no group match found
 		return false;
+	}
+	
+	protected function addNotificationMessage($_cart,$_type='error',$_message)
+	{
+		$_messages = array_values((array)$_cart->getCheckoutSession()->getMessages());
+		foreach ($_messages[0] as $_existingMessages) {
+			foreach($_existingMessages as $_existingMessage) {
+				$_existingMessage = array_values((array)$_existingMessage);
+
+				if ($_existingMessage[1] == $_message) {
+					// If the message is already set, stop here
+					return;
+				}
+			}
+		}		
+
+		// clear messages
+		$_cart->getCheckoutSession()->getMessages(true);
+		
+		if ($_type==="success") {
+			$_cart->getCheckoutSession()->addSuccess($_message);
+			return;
+		}
+		
+		if ($_type==="notice") {
+			$_cart->getCheckoutSession()->addNotice($_message);
+			return;
+		}
+
+		$_cart->getCheckoutSession()->addError($_message);
 	}
 	
 	
