@@ -18,8 +18,13 @@ This Magento module code provides Buy X Get Y, Spend X get Y, use Coupon X get Y
 	@twitter		twitter.com/gaiterjones
 	
 ### Installation
+modman
+modman clone https://github.com/gaiterjones/magento-buy-x-get-y-free
 
-Extract the module and copy the files to the /app folder of your magento installation. Refresh your cache, log out of admin and back in again.
+manual
+Extract the module and copy the files to the /app folder of your magento installation.
+
+Refresh your cache, log out of admin and back in again.
 
 ### Configuration
 
@@ -49,7 +54,7 @@ If you want to give a bonus product for multiple product X's either use an exist
 
 The module works best for a free gift product that is a simple product without options. If you want to make your free gift product Y a configurable product i.e. a product with colours RED/BLACK/WHITE, then consider creating a simple product to represent the free gift i.e. "FREE RED/BLACK/WHITE GIFT - select colour at checkout" and then include a comments section at checkout to allow customer to specify the colour/size etc there.
 
-To configure the module for use with a coupon, first configure the coupon under Admin->Promotions. Configure the name of the coupon but do not apply any discount info, conditions or actions, i.e. in effect the coupon does nothing. Under the Coupon X configuration section of the module, define product Y, the free or discounted product and the name of the configured coupon. You can also configure a minimum cart total required for this coupon. Test the module by applying the coupon to the cart, product Y should then be added.
+To configure the module for use with a coupon, first configure the coupon under Admin->Promotions. Configure the name of the coupon but do not apply any discount info, conditions or actions, i.e. in effect the coupon does nothing. Under the Coupon X configuration section of the module, define product Y, the free or discounted product and the coupon code of the configured coupon. You can also configure a minimum cart total required for this coupon. Test the module by applying the coupon to the cart, product Y should then be added.
 
 Consider modifying your theme so that products that have a zero price have the quantity selection box disabled or removed in the cart or during the checkout process.
 
