@@ -27,7 +27,7 @@
 						<show_in_store>1</show_in_store>
 						<fields>
 							<label1 translate="label comment">
-								<label>v0.72</label>
+								<label>v0.74</label>
 								<frontend_type>note</frontend_type>
 								<sort_order>4</sort_order>
 								<show_in_default>1</show_in_default>

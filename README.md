@@ -1,4 +1,4 @@
-## Magento Buy X Get Y Free - blog.gaterjones.com
+## Magento Buy X Get Y Free - blog.gaiterjones.com
 
 ### Magento module
 
@@ -11,17 +11,19 @@ This Magento module code provides Buy X Get Y, Spend X get Y, use Coupon X get Y
 
 ### Version
 ***
-	@version		0.70.0
-	@since			03 2013
+	@version		0.74
+	@since			08 2015
 	@author			gaiterjones
 	@documentation	blog.gaiterjones.com
 	@twitter		twitter.com/gaiterjones
 	
 ### Installation
 modman
+
 modman clone https://github.com/gaiterjones/magento-buy-x-get-y-free
 
 manual
+
 Extract the module and copy the files to the /app folder of your magento installation.
 
 Refresh your cache, log out of admin and back in again.

@@ -7,7 +7,7 @@
  *  Add free/discounted product/s to cart based on COUPON X get Y product/s free/discounted.
  *  Extends Mage/Checkout/CartController.php
  *  
- *  Copyright (C) 2015 paj@gaiterjones.com 27.04.2015 v0.73
+ *  Copyright (C) 2015 paj@gaiterjones.com 26.08.2015 v0.74
  *  0.59 - Bug Fix string typo maxQtyProductY
  *  0.60 - Bug Fix force lower case check for coupon name.
  *  0.61 - Added product exclusion for Spend X
@@ -19,6 +19,7 @@
  *	0.71 - Added logic for MAX and MIN spend option to allow different Y gift for different spend amounts 18.11.2013
  *	0.72 - float integer for spend totals, get subtotal from session
  *  0.73 - stop duplicate notification messages 
+ *  0.74 - improve translation strings
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -378,7 +379,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 										}
 										$cart->addProduct($product);
 										$cart->save();
-										$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));									
+										$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));									
 										session_write_close();										
 										$this->_redirect('checkout/cart');
 
@@ -403,13 +404,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
-								$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+								$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));
 								session_write_close();
 								$this->_redirect('checkout/cart');
 							}
 							if ($cfg_qty >= ($productXminQtyRequired-1) && $cfg_qty <= $productXmaxQty) {
 								// one more required for free gift prompt
-								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'. ' '. $productYDesc) .'!');
+								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more %1$s to qualify for a %2$s !',$item->getName(),$productYDesc));
 								session_write_close();
 							}
 
@@ -431,7 +432,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 									if ($qty >= 0 && $qty <= $lowStockWarningAmount) {
 										$this->sendErrorEmail('BuyXGetYFree product is at very low stock levels. There are only ' . ($qty - 1) . ' left.');
 									}
-										$message=$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.');
+										$message=$this->__('Your %1$s has been added to your cart.', $productYDesc);
 										$cart->addProduct($product);
 										$cart->save();
 										$this->addNotificationMessage($cart,'success',$message);
@@ -455,13 +456,13 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
-								$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+								$this->addNotificationMessage($cart,'success',$this->__('Your %s has been removed from your cart.', $productYDesc));
 								session_write_close();								
 								$this->_redirect('checkout/cart');
 							}
 							if ($item->getQty() >= ($productXminQtyRequired-1) && $item->getQty() <= $productXmaxQty) {
 								// one more required for free gift prompt
-								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more'). ' '. $item->getName(). ' '. $this->__('to qualify for a'). ' '. $productYDesc .'!');
+								$this->addNotificationMessage($cart,'notice',$this->__('Buy one more %1$s to qualify for a %2$s !',$item->getName(),$productYDesc));
 								session_write_close();
 							}
 					}
@@ -483,7 +484,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						// remove product Y because product X no longer in cart
 						$cart->removeItem($productYCartItemId);
 						$cart->save();
-						$this->addNotificationMessage($cart,'success',$this->__('Your'). ' '. $productYDesc. ' '. $this->__('has been removed from your cart.'));
+						$this->addNotificationMessage($cart,'success',$this->__('Your %s has been removed from your cart.', $productYDesc));
 						session_write_close();
 						$this->_redirect('checkout/cart');
 					}
@@ -570,7 +571,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));							
+							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));							
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
@@ -590,7 +591,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));							
+					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));							
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
@@ -639,7 +640,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
                     	$item->setQty($maxQtyProductY);
 						if ($maxQtyProductY > 1)
 						{
-							$this->addNotificationMessage($cart,'success',$this->__('You have reached your'). ' ' . $productYDesc. ' '. $this->__('limit of'). ' '. $maxQtyProductY. '.');	
+							$this->addNotificationMessage($cart,'success',$this->__('You have reached your %1$s limit of %2$s.',$productYDesc,$maxQtyProductY));	
 							session_write_close();							
 						}
 					} else {
@@ -672,7 +673,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));								
+							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));								
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
@@ -694,14 +695,14 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));								
+					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));								
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
 			
 			// one more required for free gift prompt				
 				if ($categoryXproductCount >= ($minQtyProductXrequired-1)) {
-					$this->addNotificationMessage($cart,'notice',$this->__('Buy one more to qualify for the'). ' '. $productYDesc .'!');								
+					$this->addNotificationMessage($cart,'notice',$this->__('Buy one more to qualify for the %1$s offer!',$productYDesc));								
 					session_write_close();
 				}				
         }
@@ -751,6 +752,9 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		
 		// check for valid coupon and cart total
         if ($subtotal >= $cartTotalRequired && strtolower($cartCouponCode) === strtolower($couponRequired)) {
+		
+		// use array of coupons ???
+		//if ($subtotal >= $cartTotalRequired && in_array(strtolower($cartCouponCode),array_map('strtolower',$couponRequired))){
 
 			if ($productYCartItemId == null) {
 				$product = Mage::getModel('catalog/product')
@@ -765,7 +769,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
-							$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been added to your cart.'));	
+							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));	
 							session_write_close();
 							$this->_redirect('checkout/cart');
 						} else {
@@ -786,7 +790,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
-					$this->addNotificationMessage($cart,'success',$this->__('Your'. ' '. $productYDesc. ' '. 'has been removed from your cart.'));		
+					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));		
 					session_write_close();
 					$this->_redirect('checkout/cart');
 				}
