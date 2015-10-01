@@ -187,7 +187,7 @@
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
-								<comment>Set to YES to notify customer when products are excluded from the Category X offer.</comment>
+								<comment>Set to YES to notify customer when products are excluded from this offer.</comment>
 							</spend_notify_excluded_products>							
 							<label2 translate="label comment">
 								<label></label>

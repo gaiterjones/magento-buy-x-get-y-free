@@ -20,6 +20,7 @@
  *	0.72 - float integer for spend totals, get subtotal from session
  *  0.73 - stop duplicate notification messages 
  *  0.74 - improve translation strings
+ *  0.75 - spend x for loop excluded product not array bug
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -142,7 +143,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$spendExcludedProductsID = Mage::getStoreConfig('buyxgetyfree_section2/general/spend_excluded_products_id');
 		
 		if (empty($spendExcludedProductsID)) {
-			$spendExcludedProductsID="0";
+			$spendExcludedProductsID=false;
 		} else {
 			$spendExcludedProductsID = explode (",",Mage::getStoreConfig('buyxgetyfree_section2/general/spend_excluded_products_id'));
 		}
@@ -517,16 +518,20 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				$productYCartItemId = $item->getItemId();
             }
 			
-			foreach ($excludeProductID as $excludedProductID)
-			{
-				// deduct excluded items from cart total
-				if ($excludedProductID !="0" & $item->getProduct()->getId() == $excludedProductID) {
-					$excludeProductTotal=$excludeProductTotal + ($item->getPrice() * $item->getQty()) ;
-					
-					// notify customer when products excluded
-					if (Mage::getStoreConfig('buyxgetyfree_section2/general/spend_notify_excluded_products'))
-					{
-						$this->addNotificationMessage($cart,'notice',$item->getName(). ' '. $this->__('excluded from our offers.'));
+			if ($excludedProductID) {
+				
+				foreach ($excludeProductID as $excludedProductID)
+				{
+					// deduct excluded items from cart total
+					if ($item->getProduct()->getId() == $excludedProductID) {
+						
+							$excludeProductTotal=$excludeProductTotal + ($item->getPrice() * $item->getQty()) ;
+						
+							// notify customer when products excluded
+							if (Mage::getStoreConfig('buyxgetyfree_section2/general/spend_notify_excluded_products'))
+							{
+								$this->addNotificationMessage($cart,'notice',$item->getName(). ' '. $this->__('excluded from our offers.'));
+							}
 					}
 				}
 			}
