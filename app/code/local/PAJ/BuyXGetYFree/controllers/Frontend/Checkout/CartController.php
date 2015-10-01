@@ -518,7 +518,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				$productYCartItemId = $item->getItemId();
             }
 			
-			if ($excludedProductID) {
+			if ($excludeProductID) {
 				
 				foreach ($excludeProductID as $excludedProductID)
 				{
