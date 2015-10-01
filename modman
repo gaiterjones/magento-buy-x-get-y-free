@@ -1,3 +1,8 @@
 app/code/local/PAJ/BuyXGetYFree		app/code/local/PAJ/BuyXGetYFree
 app/etc/modules/PAJ_BuyXGetYFree.xml	app/etc/modules/PAJ_BuyXGetYFree.xml
-app/locale	app/locale
+app/locale/da_DK/PAJ_BuyXGetYFree.csv app/locale/da_DK/PAJ_BuyXGetYFree.csv
+app/locale/de_DE/PAJ_BuyXGetYFree.csv app/locale/de_DE/PAJ_BuyXGetYFree.csv
+app/locale/en_GB/PAJ_BuyXGetYFree.csv app/locale/en_GB/PAJ_BuyXGetYFree.csv
+app/locale/en_US/PAJ_BuyXGetYFree.csv app/locale/en_US/PAJ_BuyXGetYFree.csv
+app/locale/fr_FR/PAJ_BuyXGetYFree.csv app/locale/fr_FR/PAJ_BuyXGetYFree.csv
+app/locale/nl_NL/PAJ_BuyXGetYFree.csv app/locale/nl_NL/PAJ_BuyXGetYFree.csv
