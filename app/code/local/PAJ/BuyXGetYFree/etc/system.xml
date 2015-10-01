@@ -160,11 +160,20 @@
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
 								<comment>Cart minimum subtotal required to qualify for product Y, use comma seperated values for multiple products, i.e. 50,100,200</comment>
-							</spend_cart_total_required>							
+							</spend_cart_total_required>
+							<spend_producty_description translate="label comment">
+								<label>Description for bonus or free product:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>Description of Product Y, use comma seperated values for multiple products. i.e. Free Gift,Bonus Product,Special Bonus. If left blank default is Free Gift.</comment>
+							</spend_producty_description>								
 							<spend_customer_group_id translate="label comment">
 								<label>Customer group ID:</label>
 								<frontend_type>text</frontend_type>
-								<sort_order>9</sort_order>
+								<sort_order>10</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
@@ -173,7 +182,7 @@
 							<spend_excluded_products_id translate="label comment">
 								<label>Products excluded from this offer:</label>
 								<frontend_type>text</frontend_type>
-								<sort_order>10</sort_order>
+								<sort_order>11</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
@@ -183,7 +192,7 @@
 								<label>Notify customer when products excluded from offer:</label>
 								<frontend_type>select</frontend_type>
 								<source_model>adminhtml/system_config_source_yesno</source_model>
-								<sort_order>11</sort_order>
+								<sort_order>12</sort_order>
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
