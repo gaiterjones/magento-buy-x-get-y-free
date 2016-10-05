@@ -21,6 +21,7 @@
  *  0.73 - stop duplicate notification messages 
  *  0.74 - improve translation strings
  *  0.75 - spend x for loop excluded product not array bug
+ *  0.76 - needed to be able to exclude customer groups, added exclude option for all offers 05.10.2016
  *
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -51,15 +52,20 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
      */
     public function indexAction()
     {
-	
-		// Buy X get Y Free
-		$this->buyXgetYfree();
-		// Spend X get Y Free
-		$this->spendXgetYfree();				
-		// Coupon X get Y Free
-		$this->couponXgetYfree();
-		// Category X get Y Free
-		$this->categoryXgetYfree();
+		$_excludedCustomerGroups=explode (",",Mage::getStoreConfig('buyxgetyfree_section1/general/excluded_customer_groups')); // get list of excluded groups
+		$_groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
+		
+		if (!in_array($_groupId, $_excludedCustomerGroups)) {
+			
+			// Buy X get Y Free
+			$this->buyXgetYfree();
+			// Spend X get Y Free
+			$this->spendXgetYfree();				
+			// Coupon X get Y Free
+			$this->couponXgetYfree();
+			// Category X get Y Free
+			$this->categoryXgetYfree();
+		}
 		
 			
 		return parent::indexAction();

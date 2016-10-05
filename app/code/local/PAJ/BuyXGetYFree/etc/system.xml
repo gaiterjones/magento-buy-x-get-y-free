@@ -27,7 +27,7 @@
 						<show_in_store>1</show_in_store>
 						<fields>
 							<label1 translate="label comment">
-								<label>v0.74</label>
+								<label>info</label>
 								<frontend_type>note</frontend_type>
 								<sort_order>4</sort_order>
 								<show_in_default>1</show_in_default>
@@ -81,7 +81,16 @@
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
 								<comment>Description of Product Y, use comma seperated values for multiple products. i.e. Free Gift,Bonus Product,Special Bonus. If left blank default is Free Gift.</comment>
-							</producty_description>	
+							</producty_description>
+							<excluded_customer_groups translate="label comment">
+								<label>Exclude Customer Groups:</label>
+								<frontend_type>text</frontend_type>
+								<sort_order>9</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+								<show_in_store>1</show_in_store>
+								<comment>These customer groups will be excluded from all offers. Use comma seperated list i.e. 1,2,3</comment>
+							</excluded_customer_groups>							
 							<label2 translate="label comment">
 								<label></label>
 								<frontend_type>note</frontend_type>
