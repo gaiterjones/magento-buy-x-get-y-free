@@ -53,12 +53,18 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
      */
     public function indexAction()
     {
-		$_excludedCustomerGroups=explode (",",Mage::getStoreConfig('buyxgetyfree_section1/general/excluded_customer_groups')); // get list of excluded groups
-		array_push($_excludedCustomerGroups,'placeholder');
-		$_groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
-		
-		if (!in_array($_groupId, $_excludedCustomerGroups)) {
+		$_excludedCustomerGroupConfig=Mage::getStoreConfig('buyxgetyfree_section1/general/excluded_customer_groups');
 			
+		$_groupId = (string)Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
+		$_excludedCustomerGroups=explode (",",$_excludedCustomerGroupConfig); // get list of excluded groups
+		
+		$_excludeFromOffer=false;
+		foreach ($_excludedCustomerGroups as $_excludedCustomerGroup)
+		{
+			if ($_groupId===$_excludedCustomerGroup) {$_excludeFromOffer=true;} // group is excluded from all offers
+		}	
+		
+		if (!$_excludeFromOffer) {
 			// Buy X get Y Free
 			$this->buyXgetYfree();
 			// Spend X get Y Free
@@ -68,6 +74,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 			// Category X get Y Free
 			$this->categoryXgetYfree();
 		}
+
 		
 			
 		return parent::indexAction();
