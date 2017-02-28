@@ -56,7 +56,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$_excludedCustomerGroups=explode (",",Mage::getStoreConfig('buyxgetyfree_section1/general/excluded_customer_groups')); // get list of excluded groups
 		$_groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
 		
-		if (!in_array($_groupId, $_excludedCustomerGroups) && !empty($_excludedCustomerGroups[0]) {
+		if (!in_array($_groupId, $_excludedCustomerGroups) && !empty($_excludedCustomerGroups[0])) {
 			
 			// Buy X get Y Free
 			$this->buyXgetYfree();
