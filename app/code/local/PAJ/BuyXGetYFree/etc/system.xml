@@ -186,7 +186,7 @@
 								<show_in_default>1</show_in_default>
 								<show_in_website>1</show_in_website>
 								<show_in_store>1</show_in_store>
-								<comment>ID number of the customer group customer must be a member of to qualify for offer, use comma seperated values for multiple offers. If left blank offer applies to all groups. For multiple groups specify group1+group2 e.g. 0+2 for group 0 and group 2.</comment>
+								<comment>ID number of the customer group customer must be a member of to qualify for offer, use comma seperated values for multiple offers. If left blank offer applies to all groups. For multiple groups specify group1,group2 e.g. 0,2 for group 0 and group 2.</comment>
 							</spend_customer_group_id>
 							<spend_excluded_products_id translate="label comment">
 								<label>Products excluded from this offer:</label>

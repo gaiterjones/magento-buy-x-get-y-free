@@ -22,7 +22,8 @@
  *  0.74 - improve translation strings
  *  0.75 - spend x for loop excluded product not array bug
  *  0.76 - needed to be able to exclude customer groups, added exclude option for all offers 05.10.2016
- *
+ *  0.77 - fix group check array
+ *  0.78 - fix bug in excluded groups when empty
  *	This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -55,7 +56,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 		$_excludedCustomerGroups=explode (",",Mage::getStoreConfig('buyxgetyfree_section1/general/excluded_customer_groups')); // get list of excluded groups
 		$_groupId = Mage::getSingleton('customer/session')->getCustomerGroupId(); //Get Customers Group ID
 		
-		if (!in_array($_groupId, $_excludedCustomerGroups)) {
+		if (!in_array($_groupId, $_excludedCustomerGroups) && !empty($_excludedCustomerGroups[0]) {
 			
 			// Buy X get Y Free
 			$this->buyXgetYfree();
@@ -858,20 +859,20 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 	}
 	 
 
-	private function checkCustomerGroupId($requiredGroupId)
+	private function checkCustomerGroupId($_requiredGroupId)
 	{
 		// required group ID not configured
-		if(empty($requiredGroupId)) { return true; }
+		if(empty($_requiredGroupId)) { return true; }
 
-		$requiredGroupId = explode ("+",$requiredGroupId);
-		$groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
-		for($i = 0; $i < count($requiredGroupId); $i++){
-			if($groupId == (int)$requiredGroupId[$i])
-			{
-				// group match found
-				return true;
-			}
-		}
+		$_requiredGroupId = explode (',',$_requiredGroupId);
+		
+		$_groupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
+		
+		if (in_array($_groupId, $_requiredGroupId)) {
+			// group match found
+			return true;
+		}		
+
 		// no group match found
 		return false;
 	}
