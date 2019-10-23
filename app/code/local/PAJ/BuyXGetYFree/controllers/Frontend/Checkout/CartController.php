@@ -343,6 +343,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
                if ($item->getQty() > 1) {
                      $item->setQty(1);
                      $cart->save();
+					 $this->_getSession()->setCartWasUpdated(true);
 				}
              // product y exists in cart
 			 $productYCartItemId = $item->getItemId();
@@ -395,6 +396,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 										}
 										$cart->addProduct($product);
 										$cart->save();
+										$this->_getSession()->setCartWasUpdated(true);
 										$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));									
 										session_write_close();										
 										$this->_redirect('checkout/cart');
@@ -420,6 +422,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
+								$this->_getSession()->setCartWasUpdated(true);
 								$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));
 								session_write_close();
 								$this->_redirect('checkout/cart');
@@ -451,6 +454,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 										$message=$this->__('Your %1$s has been added to your cart.', $productYDesc);
 										$cart->addProduct($product);
 										$cart->save();
+										$this->_getSession()->setCartWasUpdated(true);
 										$this->addNotificationMessage($cart,'success',$message);
 										session_write_close();
 										$this->_redirect('checkout/cart');
@@ -472,8 +476,9 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							if ($productYCartItemId != null) {
 								$cart->removeItem($productYCartItemId);
 								$cart->save();
+								$this->_getSession()->setCartWasUpdated(true);
 								$this->addNotificationMessage($cart,'success',$this->__('Your %s has been removed from your cart.', $productYDesc));
-								session_write_close();								
+								session_write_close();							
 								$this->_redirect('checkout/cart');
 							}
 							if ($item->getQty() >= ($productXminQtyRequired-1) && $item->getQty() <= $productXmaxQty) {
@@ -500,6 +505,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 						// remove product Y because product X no longer in cart
 						$cart->removeItem($productYCartItemId);
 						$cart->save();
+						$this->_getSession()->setCartWasUpdated(true);
 						$this->addNotificationMessage($cart,'success',$this->__('Your %s has been removed from your cart.', $productYDesc));
 						session_write_close();
 						$this->_redirect('checkout/cart');
@@ -528,6 +534,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($item->getQty() > 1) {
                     $item->setQty(1);
                     $cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 				}
 				// product y exists in cart
 				$productYCartItemId = $item->getItemId();
@@ -591,6 +598,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
+							$this->_getSession()->setCartWasUpdated(true);
 							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));							
 							session_write_close();
 							$this->_redirect('checkout/cart');
@@ -611,6 +619,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));							
 					session_write_close();
 					$this->_redirect('checkout/cart');
@@ -667,6 +676,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
                     	$item->setQty(floor($categoryXproductCount / $productYstep));
 					}
 	                $cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 
 				// product y exists in cart
 				$productYCartItemId = $item->getItemId();
@@ -693,6 +703,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
+							$this->_getSession()->setCartWasUpdated(true);
 							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));								
 							session_write_close();
 							$this->_redirect('checkout/cart');
@@ -715,6 +726,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));								
 					session_write_close();
 					$this->_redirect('checkout/cart');
@@ -753,6 +765,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($item->getQty() > 1) {
                     $item->setQty(1);
                     $cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 				}
 				// product y exists in cart
 				$productYCartItemId = $item->getItemId();
@@ -789,6 +802,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 							}
 							$cart->addProduct($product);
 							$cart->save();
+							$this->_getSession()->setCartWasUpdated(true);
 							$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been added to your cart.', $productYDesc));	
 							session_write_close();
 							$this->_redirect('checkout/cart');
@@ -810,6 +824,7 @@ class PAJ_BuyXGetYFree_Frontend_Checkout_CartController extends Mage_Checkout_Ca
 				if ($productYCartItemId != null) {
 					$cart->removeItem($productYCartItemId);
 					$cart->save();
+					$this->_getSession()->setCartWasUpdated(true);
 					$this->addNotificationMessage($cart,'success',$this->__('Your %1$s has been removed from your cart.', $productYDesc));		
 					session_write_close();
 					$this->_redirect('checkout/cart');
