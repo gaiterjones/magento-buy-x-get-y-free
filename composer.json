@@ -1,0 +1,38 @@
+{
+    "name": "corlletelab/magento-buy-x-get-y-free",
+    "type": "magento-module",
+    "license":"OSL-3.0",
+    "description":"PAJ/BuyXGetYFree",
+    "authors":[
+        {
+            "name":"Desislav Yosifov",
+            "email":"support@corllete.com"
+        },
+        {
+            "name":"gaiterjones",
+            "url":"https://github.com/gaiterjones"
+        }
+    ],
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/magento-hackathon/magento-composer-installer"
+        }
+    ],
+
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+
+    "extra": {
+        "map": [
+            ["app/code/local/PAJ/BuyXGetYFree", "app/code/local/PAJ/BuyXGetYFree"],
+            ["app/etc/modules/PAJ_BuyXGetYFree.xml", "app/etc/modules/PAJ_BuyXGetYFree.xml"]
+        ]
+    },
+
+    "config": {
+        "preferred-install": "dist"
+    }
+}
